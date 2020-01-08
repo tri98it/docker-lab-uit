@@ -1,0 +1,13 @@
+version: "2"
+services:
+ web:
+  build: .
+  image: web_server
+  container_name: web_server
+  restart: always
+  ports:
+   - "80:80"
+  networks:
+   - back-tier
+networks:
+  back-tier:

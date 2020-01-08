@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  node0_app:
+    container_name: node0
+    build: .
+    command: ["-s"]
+    networks:
+      netlab3:
+        ipv4_address: 172.30.0.10
+
+  node1_app:
+    container_name: node1
+    build: .
+    links:
+     - node0_app
+    command: ["-c","node0"]
+    networks:
+      netlab3:
+        ipv4_address: 172.30.0.11
+
+  node2_app:
+    container_name: node2
+    build: .
+    links:
+     - node0_app
+    command: ["-c","node0"]
+    networks:
+      netlab3:
+        ipv4_address: 172.30.0.12
+
+networks:
+  netlab3:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 172.30.0.0/24
